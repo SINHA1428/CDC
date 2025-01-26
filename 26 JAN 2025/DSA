@@ -67,4 +67,71 @@ Constraints:
 
 1 <= nums.length <= 105
 -104 <= nums[i] <= 104
+
+SOLUTION:
+
+#include <vector>
+#include <algorithm>
+using namespace std;
+
+int maxSubArray(vector<int>& nums) {
+    int currentSum = nums[0]; 
+    int maxSum = nums[0];     
+
+    for (int i = 1; i < nums.size(); i++) {
+        currentSum = max(nums[i], currentSum + nums[i]); 
+        maxSum = max(maxSum, currentSum);               
+    }
+
+    return maxSum;
+}
+
+
+
+20. Valid Parentheses
+
+Given a string s containing just the characters '(', ')', '{', '}', '[' and ']', determine if the input string is valid.
+
+An input string is valid if:
+
+Open brackets must be closed by the same type of brackets.
+Open brackets must be closed in the correct order.
+Every close bracket has a corresponding open bracket of the same type.
  
+Example 1:
+Input: s = "()"
+Output: true
+
+Example 2:
+Input: s = "()[]{}"
+Output: true
+
+Example 3:
+Input: s = "(]"
+Output: false
+
+Example 4:
+Input: s = "([])"
+Output: true
+
+
+SOLTION:
+
+class Solution {
+public:
+    bool isValid(string s) {
+        stack<char>st;
+        for(char c : s){
+            if(c=='('||c=='['||c=='{'){
+                st.push(c);
+            }
+            else{
+            if(st.empty()||(c==')'&&st.top()!='(')||(c==']'&&st.top()!='[')||(c=='}'&&st.top()!='{')){
+                return false; 
+            }
+            st.pop();
+        }
+        }
+        return st.empty();
+    }
+};
